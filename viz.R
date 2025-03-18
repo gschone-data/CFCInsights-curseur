@@ -1,7 +1,7 @@
 library(ggplot2)
 
 library(waffle)
-#source("source/load_data.R")
+source("source/load_data.R")
 
 GPS_l<-GPS |> select(date,scoring,cat,mois) |> filter(scoring!=0)
 setorder(GPS_l,date)
@@ -13,7 +13,7 @@ GPS_l[,group:=cat]
 GPS_l[,subgroup:=mois]
 GPS_l[,value:=scoring]
 
-ggplot(data = GPS_l, aes(fill=subgroup, values=value)) +
-  geom_waffle(color = "white", size = 1.125, n_rows = 6) +
-  facet_wrap(~group, ncol=1) +
+ggplot(data = GPS_l, aes(fill=cat, values=scoring)) +
+  geom_waffle(color = "blue", size = 1.125, n_rows = 6) +
+  facet_wrap(~mois, ncol=1) +
   theme_void()
